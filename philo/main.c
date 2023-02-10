@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yamrire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/10 17:40:38 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:47:14 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 // 	free(arg);
 // }
 
+void *routine(void *arg)
+{
+}
+
 int	main(int ac, char **av)
 { 
 	t_data	data;
@@ -40,16 +44,22 @@ int	main(int ac, char **av)
 		data.nph = ft_atoi(av[1]);
 		data.philo = malloc(sizeof(t_philo) * data.nph);
 		index = 0;
-		data.fork = malloc(sizeof(pthread_t) * data.nph);
 		while (index < data.nph)
 		{
 			data.philo[index].die_time = ft_atoi(av[2]);
 			data.philo[index].eat_time = ft_atoi(av[3]);
 			data.philo[index].sleep_time = ft_atoi(av[4]);
-			pthread_mutex_init(&data.fork[index], NULL);
+			pthread_mutex_init(&data.philo[index].fork, NULL);
 			data.philo[index].index = index;
 			index++;
 		}
+		index = 0;
+		while (index < data.nph)
+		{
+			if (pthread_create(&data.philo[index].th, NULL, &routine, (void *)&data))
+				return (-1);
+		}
+		
 		// while (data.philo->index < data.nph)
 		// {
 		// 	tmp = malloc(sizeof(t_data));
