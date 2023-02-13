@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamrire <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/13 06:06:46 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:01:56 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,29 @@ void	eating_process(t_philo *philo)
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld  %d has taken a fork\n", what_time(), philo->index + 1);
 	pthread_mutex_unlock(&philo->data->print);
+	philo->last_eat = what_time();
 	philo->philo_eat++;
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld  %d is eating\n", what_time(), philo->index + 1);
+	if (philo->philo_eat == philo->data->eat_nbr)
+		philo->data->counter++;
 	pthread_mutex_unlock(&philo->data->print);
-	philo->last_eat = what_time();
-	usleep(philo->data->eat_time * 1000);
+	usleep((philo->data->eat_time - 10) * 1000);
+	while (what_time() <= philo->last_eat + philo->data->sleep_time);
 	pthread_mutex_unlock(&philo->data->fork[philo->index]);
 	pthread_mutex_unlock(&philo->data->fork[(philo->index + 1) % philo->data->nph]);
 }
 
 void	sleeping_process(t_philo *philo)
 {
+	unsigned long	ms;
+
+	ms = what_time();
 	pthread_mutex_lock(&philo->data->print);
-	printf("%ld  %d is sleeping\n", what_time(), philo->index + 1);
+	printf("%ld  %d is sleeping\n", ms, philo->index + 1);
 	pthread_mutex_unlock(&philo->data->print);
-	usleep(philo->data->sleep_time * 1000);
+	usleep((philo->data->sleep_time - 10) * 1000);
+	while (what_time() <= ms + philo->data->sleep_time);
 }
 
 void	thinking_process(t_philo *philo)
@@ -90,6 +97,7 @@ int	fill_args(t_data *data, int ac, char **av)
 {
 	if (ac == 5 || ac == 6)
 	{
+		data->counter = 0;
 		if (pthread_mutex_init(&data->print, NULL))
 			return (-1);
 		data->nph = ft_atoi(av[1]);
@@ -169,7 +177,7 @@ int	parent(t_philo *philo)
 				printf("%ld  %d died\n", ms, philo->index + 1);
 				return (0);
 		}
-		else if (philo[i].data->eat_nbr && philo[i].data->eat_nbr == philo[i].philo_eat)
+		else if (philo[i].data->eat_nbr && philo[i].data->counter == philo[i].data->nph)
 			return (0);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamrire <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 02:31:44 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/13 05:27:33 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/13 10:58:34 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_data
 	int				eat_time;
 	int				sleep_time;
 	int				eat_nbr;
+	int				counter;
 }	t_data;
 
 typedef struct	s_philo
