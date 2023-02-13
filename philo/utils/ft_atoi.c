@@ -6,51 +6,34 @@
 /*   By: yamrire <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 21:53:01 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/01 02:26:10 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:54:45 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	initiate_atoi(char **src, int *sign)
+int	ft_atoi(char *str)
 {
-	while (ft_strchr(" \n\f\r\t\v", **src))
-		(*src)++;
-	*sign = 1;
-	if (**src == '-')
-	{
-		*sign = -1;
-		(*src)++;
-	}
-	else if (**src == '+')
-		(*src)++;
-}
-
-int	ft_atoi(const char *str)
-{
-	char		*src;
 	long long	num;
-	int			sign;
+	int			i;
 
 	if (!ft_strlen(str))
-		return (0);
-	src = (char *) str;
+		return (-1);
 	num = 0;
-	initiate_atoi (&src, &sign);
-	while (*src >= '0' && *src <= '9')
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] <= 48 || str[i] >= 57)
+		return (-1);
+	while (str[i] && str[i] >= 48 && str[i] <= 57)
 	{
-		if (num * 10 + (*src - 48) >= num)
-			num = num * 10 + (*src - 48);
+		if (num * 10 + (str[i] - 48) >= num)
+			num = num * 10 + (str[i] - 48);
 		else
-		{
-			if (sign == 1)
-				return (-1);
-			else
-				return (0);
-		}
-		src++;
+			return (-1);
+		i++;
 	}
-	// if ((num * sign) > 2147483647 || (num * sign) < -2147483648)
-	// 	ft_exit();
-	return (num * sign);
+	if (num > 2147483647)
+		return (-1);
+	return (num);
 }
