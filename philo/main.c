@@ -6,7 +6,7 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 08:19:29 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 12:04:48 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	bring_tolife(t_philo *philo, t_data *data)
 		printf("ERROR: Occured while creating threads\n");
 		return (-1);
 	}
-	usleep(350);
+	usleep(1000);
 	if (philo_creation(philo, 1) == -1)
 	{
 		pthread_mutex_lock(&data->print);
