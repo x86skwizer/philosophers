@@ -6,7 +6,7 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 07:03:28 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 08:15:29 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	parent(t_philo *philo)
 		if (ms >= tmp)
 		{
 			pthread_mutex_lock(&philo[i].data->print);
-			printf("%ld  %d died\n", ms, philo->index + 1);
+			printf("%ld %d died\n", ms, philo->index + 1);
 			return (0);
 		}
 		else if (philo[i].data->eat_nbr
