@@ -6,7 +6,7 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 08:15:29 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 08:19:29 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	bring_tolife(t_philo *philo, t_data *data)
 	if (philo_creation(philo, 0) == -1)
 	{
 		pthread_mutex_lock(&data->print);
-		printf("ERROR: Occured while creating threads");
+		printf("ERROR: Occured while creating threads\n");
 		return (-1);
 	}
 	usleep(350);
 	if (philo_creation(philo, 1) == -1)
 	{
 		pthread_mutex_lock(&data->print);
-		printf("ERROR: Occured while creating threads");
+		printf("ERROR: Occured while creating threads\n");
 		return (-1);
 	}
 	return (0);
@@ -91,7 +91,7 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	if (fill_args(data, ac, av) == -1 || check_arg_num(ac) == -1)
 	{
-		printf("ERROR: Wrong arguments filling");
+		printf("ERROR: Wrong arguments filling\n");
 		free(data);
 		return (-1);
 	}
