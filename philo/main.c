@@ -6,7 +6,7 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:01:34 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 05:19:04 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 07:03:28 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-
 	while (1)
 	{
 		eating_process(philo);
@@ -72,11 +71,12 @@ int	parent(t_philo *philo)
 		tmp = philo[i].last_eat + philo[i].data->die_time;
 		if (ms >= tmp)
 		{
-				pthread_mutex_lock(&philo[i].data->print);
-				printf("%ld  %d died\n", ms, philo->index + 1);
-				return (0);
+			pthread_mutex_lock(&philo[i].data->print);
+			printf("%ld  %d died\n", ms, philo->index + 1);
+			return (0);
 		}
-		else if (philo[i].data->eat_nbr && philo[i].data->counter == philo[i].data->nph)
+		else if (philo[i].data->eat_nbr
+			&& philo[i].data->counter == philo[i].data->nph)
 			return (0);
 		i++;
 	}
@@ -89,7 +89,7 @@ int	main(int ac, char **av)
 	t_data			*data;
 
 	data = malloc(sizeof(t_data));
-	if (fill_args(data, ac, av) == -1)
+	if (fill_args(data, ac, av) == -1 || check_arg_num(ac) == -1)
 	{
 		printf("ERROR: Wrong arguments filling");
 		free(data);
@@ -100,7 +100,8 @@ int	main(int ac, char **av)
 	fill_philo(philo, data);
 	if (bring_tolife(philo, data) == -1)
 		return (-1);
-	while (parent(philo));
+	while (parent(philo))
+		;
 	free(data->fork);
 	free(data);
 	free(philo);

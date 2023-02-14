@@ -6,20 +6,20 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 02:31:44 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 05:23:42 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 07:00:53 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include "./utils/utils.h"
-#include <pthread.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/time.h>
+# include "./utils/utils.h"
+# include <pthread.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <sys/time.h>
 
-typedef struct	s_data
+typedef struct s_data
 {
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
@@ -31,7 +31,7 @@ typedef struct	s_data
 	int				counter;
 }	t_data;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	struct s_data	*data;
 	pthread_t		id;
@@ -42,6 +42,7 @@ typedef struct	s_philo
 }	t_philo;
 
 unsigned long	what_time(void);
+int				check_arg_num(int ac);
 int				fill_args(t_data *data, int ac, char **av);
 void			fill_philo(t_philo *philo, t_data *data);
 void			eating_process(t_philo *philo);

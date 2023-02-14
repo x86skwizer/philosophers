@@ -6,7 +6,7 @@
 /*   By: yamrire <yamrire@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 05:19:33 by yamrire           #+#    #+#             */
-/*   Updated: 2023/02/14 05:20:49 by yamrire          ###   ########.fr       */
+/*   Updated: 2023/02/14 06:50:43 by yamrire          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	eating_process(t_philo *philo)
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld  %d has taken a fork\n", what_time(), philo->index + 1);
 	pthread_mutex_unlock(&philo->data->print);
-	pthread_mutex_lock(&philo->data->fork[(philo->index + 1) % philo->data->nph]);
+	pthread_mutex_lock(&philo->data->fork[(philo->index + 1)
+		% philo->data->nph]);
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld  %d has taken a fork\n", what_time(), philo->index + 1);
 	pthread_mutex_unlock(&philo->data->print);
@@ -30,9 +31,11 @@ void	eating_process(t_philo *philo)
 		philo->data->counter++;
 	pthread_mutex_unlock(&philo->data->print);
 	usleep((philo->data->eat_time - 10) * 1000);
-	while (what_time() <= philo->last_eat + philo->data->sleep_time);
+	while (what_time() <= philo->last_eat + philo->data->sleep_time)
+		;
 	pthread_mutex_unlock(&philo->data->fork[philo->index]);
-	pthread_mutex_unlock(&philo->data->fork[(philo->index + 1) % philo->data->nph]);
+	pthread_mutex_unlock(&philo->data->fork[(philo->index + 1)
+		% philo->data->nph]);
 }
 
 void	sleeping_process(t_philo *philo)
@@ -44,7 +47,8 @@ void	sleeping_process(t_philo *philo)
 	printf("%ld  %d is sleeping\n", ms, philo->index + 1);
 	pthread_mutex_unlock(&philo->data->print);
 	usleep((philo->data->sleep_time - 10) * 1000);
-	while (what_time() <= ms + philo->data->sleep_time);
+	while (what_time() <= ms + philo->data->sleep_time)
+		;
 }
 
 void	thinking_process(t_philo *philo)
