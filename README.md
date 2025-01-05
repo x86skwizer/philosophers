@@ -1,4 +1,3 @@
-```markdown
 # Philo
 
 An implementation of the classic [Dining Philosophers Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) in C using POSIX threads. The primary aim is to demonstrate concurrency, resource sharing, and thread synchronization.
@@ -165,4 +164,3 @@ philo
   \[ [42 Profile](https://profile.intra.42.fr/users/yamrire) \]  
 
 Feel free to contribute or reach out for any questions or improvements!
-```
